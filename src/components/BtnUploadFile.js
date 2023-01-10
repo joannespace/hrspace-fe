@@ -32,10 +32,10 @@ function BtnUploadFile({
     if (!token) tokenClient.requestAccessToken();
     openPicker({
       clientId:
-        "879752203865-kpc52vlmopu7s4b4u7gjn28clc8334ta.apps.googleusercontent.com",
-      developerKey: "AIzaSyAfUrJ5li3jjQEdLznTrB9LiwRBcaW7MV8",
+        "CLIENT_ID",
+      developerKey: "SECRET_KEY",
       token:
-        "ya29.a0AX9GBdXEXu4PCmq3UBl9xqVXaQOkB2auYcI5CZuSz_3zM3B9Uv5n24q6TYUQKwxkA9zknhZRP52LodnMT5WiScyPIeRKoHx2Y0bokw57ISFmYPQO3CmIRl2SMNAewMFFfKXICsipYsBYnRijWhOXrTXJbEHqHhMaCgYKATcSAQASFQHUCsbCsbMPl3jOV_ZZv4XdDJJvtg0166",
+        "ACCESS_TOKEN",
       viewId: "DOCS",
       showUploadView: true,
       showUploadFolders: true,
