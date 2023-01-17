@@ -33,12 +33,7 @@ function SearchInput({ handleSubmit, flexGrow }) {
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton
-                  edge="end"
-                  size="medium"
-                  type="submit"
-                  onClick={handleSubmit}
-                >
+                <IconButton edge="end" size="medium" type="submit">
                   <Search fontSize="large" color="primary" />
                 </IconButton>
               </InputAdornment>

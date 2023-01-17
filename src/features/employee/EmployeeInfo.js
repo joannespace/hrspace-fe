@@ -77,7 +77,7 @@ function EmployeeInfo() {
             <Alert severity="error">{errors.responseError.message}</Alert>
           )}
 
-          <FormComponent />
+          <FormComponent employee={employee} />
 
           {auth.user.role === "Admin" && (
             <BtnGroupView isSubmitting={isSubmitting} setError={setError} />

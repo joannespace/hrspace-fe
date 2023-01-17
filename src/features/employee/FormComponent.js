@@ -15,7 +15,7 @@ import {
 } from "./config";
 import useAuth from "../../hooks/useAuth";
 
-function FormComponent() {
+function FormComponent({ employee = undefined }) {
   const auth = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showSalary, setShowSalary] = useState(false);
@@ -116,6 +116,13 @@ function FormComponent() {
               </option>
             );
           })}
+          {managerList.length === 0 ? (
+            <option value={employee?.lineManager._id}>
+              {employee?.lineManager.name}
+            </option>
+          ) : (
+            <></>
+          )}
         </FSelect>
         <FTextField
           label="Gross Salary"

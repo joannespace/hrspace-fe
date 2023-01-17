@@ -51,7 +51,7 @@ function BtnDeleteUser({ employee }) {
           horizontal: "left",
         }}
       >
-        <MenuItem onClick={handleDeleteUser}>Delete user</MenuItem>
+        <MenuItem onClick={handleDeleteUser}>Deactivate user</MenuItem>
       </Menu>
     </div>
   );
