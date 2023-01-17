@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 
-import BtnFilter from "../../components/BtnFilter";
 import SearchInput from "../../components/SearchInput";
 import { getEmployeeList } from "../employee/employeeSlice";
 import { getUserList } from "./userSlice";
