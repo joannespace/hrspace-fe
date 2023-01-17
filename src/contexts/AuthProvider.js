@@ -146,9 +146,9 @@ function AuthProvider({ children }) {
 
       dispatch({ type: SIGNUP_SUCCESS, payload: { user } });
 
-      callback();
-
       toast.success("Verification Success");
+
+      callback();
     } catch (error) {
       toast.error(error.message);
     }
