@@ -58,7 +58,7 @@ function Homepage() {
     <>
       <Box>
         <img
-          src="https://hrnews.pl/storage/2020/02/HR_clickmeeting-1024x406.jpg"
+          src="https://img.freepik.com/free-vector/human-resources-hr-typographic-header-idea-recruitment-job-management-hr-manager-interviewing-job-candidate-flat-vector-illustration_613284-1240.jpg?w=2000"
           alt="banner"
           width="100%"
         />
