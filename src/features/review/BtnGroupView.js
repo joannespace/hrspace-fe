@@ -53,7 +53,7 @@ function BtnGroupView({ isSubmitting, setError }) {
 
   return (
     <Stack spacing={2} direction={{ xs: "column", md: "row" }} flexGrow={1}>
-      {auth.user.role !== "Employee" && (
+      {(auth.user.role === "Admin" || auth.user.role === "Manager") && (
         <LoadingButton
           variant="contained"
           type="submit"

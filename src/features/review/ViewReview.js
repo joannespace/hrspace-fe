@@ -83,10 +83,9 @@ function ViewReview() {
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={2}>
             <FormComponent methods={methods} />
-            {auth.user.role === "Admin" ||
-              (auth.user._id === employee?.lineManager?._id && (
-                <BtnGroupView isSubmitting={isSubmitting} setError={setError} />
-              ))}
+            {auth.user.role !== "Employee" && (
+              <BtnGroupView isSubmitting={isSubmitting} setError={setError} />
+            )}
           </Stack>
         </FormProvider>
       </Paper>
