@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -11,25 +11,24 @@ import { deletePaperwork } from "./paperworkSlice";
 import StateToPdfMake from "draft-js-export-pdfmake";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import ConfirmBox from "../../components/ConfirmBox";
 
 function BtnGroupView({ setError, isSubmitting, content }) {
+  const [open, setOpen] = useState(false);
+
   const params = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleDelete = () => {
     try {
-      const confirmation = window.confirm(
-        "This action can not be undo and will delete the related review as well. Do you want to delete this paperwork? "
+      dispatch(
+        deletePaperwork({
+          id: params.id,
+          idPaper: params.idPaper,
+        })
       );
-      if (confirmation) {
-        dispatch(
-          deletePaperwork({
-            id: params.id,
-            idPaper: params.idPaper,
-          })
-        );
-        navigate(`/employee/${params.id}/paperwork`);
-      }
+      navigate(`/employee/${params.id}/paperwork`);
     } catch (error) {
       setError("responseError", error);
     }
@@ -73,11 +72,22 @@ function BtnGroupView({ setError, isSubmitting, content }) {
           fontWeight: 600,
           ":hover": { backgroundColor: "secondary.lighter" },
         }}
-        onClick={handleDelete}
+        onClick={() => {
+          setOpen(true);
+        }}
       >
         <DeleteIcon fontSize="small" sx={{ marginRight: 1 }} />
         Delete
       </LoadingButton>
+
+      <ConfirmBox
+        open={open}
+        setOpen={setOpen}
+        text={
+          "Do you want to delete this paperwork? This action can not be undo."
+        }
+        handleDelete={handleDelete}
+      />
     </Stack>
   );
 }

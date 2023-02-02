@@ -79,14 +79,14 @@ export const lightThemeOptions = {
 };
 
 const PRIMARY_DARK = {
-  main: "#919EAB",
+  main: "#454F5B",
   light: "#637381",
-  dark: "#454F5B",
-  contrastText: "#161C24",
+  dark: "#161C24",
+  contrastText: "#fff",
 };
 
 const TEXT = {
-  primary: GREY[300],
+  primary: GREY[500],
   secondary: GREY[400],
   disabled: GREY[500],
 };
@@ -100,24 +100,3 @@ export const darkThemeOptions = {
     mode: "dark",
   },
 };
-
-// primary: PRIMARY_DARK,
-// secondary: SECONDARY,
-// success: SUCCESS,
-// text: TEXT,
-// mode: "dark",
-// background: {
-//   paper: "#161C24",
-//   default: "#FFF",
-//   neutral: GREY[200],
-// },
-// action: {
-//   active: GREY[600],
-//   hover: GREY[200],
-//   selected: GREY[500_16],
-//   disabled: GREY[500_80],
-//   disabledBackground: GREY[500_24],
-//   focus: GREY[500_24],
-//   hoverOpacity: 0.08,
-//   disabledOpacity: 0.48,
-// },

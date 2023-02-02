@@ -1,70 +1,326 @@
-# Getting Started with Create React App
+# HRSpace User Stories Update
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### HRSpace is a human resources platform that supports HR in the employees' database management and paperwork process with an ease.
 
-## Available Scripts
+### User Story
 
-In the project directory, you can run:
+HRSpace's target users are Human Resources employees who have to deal with a huge amount of paperwork and employee's information accumulation. With just a name, an email, a password, and a company name, each user can register an account as the admin for that company. Email and company are unique among the users of the platforms.
 
-### `npm start`
+There are 3 user roles in the platform: Admin, Manager, and Employee. While the ADMIN can access all pages, the other roles can access the allowed information.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+| No.            | Manager                                               | Employee                          |
+| -------------- | ----------------------------------------------------- | --------------------------------- |
+| Employees List | Can see employees' list under manager's management    | Can not                           |
+| Information    | Can see employees' info under manager's management    | Can see employee's info only      |
+| Review         | Can see employees' reviews under manager's management | Can see employee's review only    |
+| Paperwork      | Can not view employees' paperwork                     | Can see employee's paperwork only |
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+After logging in HRSpace, based on their roles, users can see a list of employees that created in the database and paginate among the list. Besides, users can search employees by name or filter by status, department, employment type.
 
-### `npm test`
+If there's no employee yet, admins can create new employee by providing the requested information like name, onboarding date, department, etc.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+By accessing employee detailed page, admin users can view or edit employees information. Paperwork section is the place for users to check paperwork status and generate a new paperwork in accordance with provided employee's data.
 
-### `npm run build`
+When any paperwork created successfully, a related review for that paperwork will be automatically generated. This Review section is all for paperwork renew consideration. Admins can share the review by themeselves to remind the manager on review conduction.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### 1. ALL USERS
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- [ ] Sign up and sign in manually or via Gmail
+- [ ] Verify email
+- [ ] Stay sign in after page refresh
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### 2. ADMIN ROLE
 
-### `npm run eject`
+##### Emloyee Section
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- [ ] See, search or filter lists of employees database
+- [ ] Create single employee at a time or in bulk
+- [ ] Update employees' info or delete an employee
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+##### Paperwork Section
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- [ ] Create a paperwork along with the review at the same time
+- [ ] View, update or delete a paperwork
+- [ ] Upload signed paperwork to my Drive
+- [ ] Generate a paperwork into PDF & download it for printing
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+##### Review Section
 
-## Learn More
+- [ ] Create, search, filter the list of generated review
+- [ ] View, share, or delete an available review
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+##### Users Section
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [ ] Search lists of employees database
+- [ ] Generate or reset users' passwords
+- [ ] Deactivate users
 
-### Code Splitting
+##### Template Section
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- [ ] Create, filter, search template
+- [ ] Update template details or delete template
 
-### Analyzing the Bundle Size
+#### 3. MANAGER ROLE
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+##### Emloyee Section
 
-### Making a Progressive Web App
+- [ ] See, search, filter lists of the employees under my management.
+- [ ] See my employees' detailed information, excluding their salaries.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+##### Paperwork Section
 
-### Advanced Configuration
+- [ ] I can see all my paperwork
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+##### Review Section
 
-### Deployment
+- [ ] See and evaluate the reviews of employees that I managed
+- [ ] Search review by title or filter by status
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+#### 4. EMPLOYEE ROLE
 
-### `npm run build` fails to minify
+- [ ] In Employee section, see only me in the employee list and my detailed info
+- [ ] In paperwork section, see all my paperwork
+- [ ] In review section, see the list of my review and its details
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### API Endpoints
+
+##### AUTH APIs
+
+```javascript
+* @route POST /auth/login
+* @description Login with username and password
+* @body {email, passsword}
+* @access Public
+```
+
+```javascript
+ * @route POST /auth/loginWithGmail
+ * @description Login with Gmail
+ * @body {email, email_verified}
+ * @access Public
+```
+
+```javascript
+ * @route POST /auth/verification/:confirmationCode
+ * @description Verify email
+ * @body {confirmationCode}
+ * @access Private
+```
+
+##### USERS APIs
+
+```javascript
+ * @route POST /users/register
+ * @description Register a new user
+ * @body {name, email, password, companyName}
+ * @access Public
+```
+
+```javascript
+ * @route GET /users
+ * @description Get user list
+ * @body {page, limit, searchName, filter}
+ * @access Login Required, Admin Only
+```
+
+```javascript
+ * @route POST /users/activate
+ * @description Activate a user
+ * @body {email, password}
+ * @params {id}
+ * @access Login Required, Admin Only
+```
+
+```javascript
+ * @route PUT /users/reset
+ * @description Reset password
+ * @body {email, password}
+ * @params {id}
+ * @access Login Required, Admin Only
+```
+
+```javascript
+ * @route DELETE /users
+ * @description Reset password
+ * @params {id}
+ * @access Login Required, Admin Only
+```
+
+##### EMPLOYEES APIs
+
+```javascript
+ * @route POST /employees/
+ * @description Create an employee
+ * @body {name, email, role }
+ * @access Login Required, Admin Only
+```
+
+```javascript
+ * @route POST /employees/upload
+ * @description Create many employees via file
+ * @header {accessToken}
+ * @access Login Required, Admin Only
+```
+
+```javascript
+ * @route GET /employees&page=0&limit=10?name=
+ * @description Get list of employees based on current employee role
+ * @query {page, limit, name, department, employmentStatus, employmentTypes }
+ * @header {accessToken}
+ * @access Login Required
+```
+
+```javascript
+ * @route GET /employees/:id
+ * @description See an employee information
+ * @query {id}
+ * @header {accessToken}
+ * @access Login Required
+```
+
+```javascript
+ * @route PUT /employees/:id
+ * @description Update an employee profile
+ * @body {name, email, company,... }
+ * @access Login Required, Admin Only
+```
+
+```javascript
+ * @route DELETE /employees/:id
+ * @description Delete an employee
+ * @params {id }
+ * @access Login Required, Admin Only
+```
+
+##### PAPERWORKS APIS
+
+```javascript
+ * @route GET /paperwork/:id (EmployeeID)
+ * @description Get paperwork list of a specific employee
+ * @header {accessToken}
+ * @access Login Required
+```
+
+```javascript
+ * @route GET /paperwork/:id/:idPaper
+ * @description Get a paperwork details
+ * @header {accessToken}
+ * @access Login Required, Admin and Current EmployeeID Only
+```
+
+```javascript
+ * @route POST /paperwork/:id
+ * @description Create a paperwork
+ * @header {accessToken}
+ * @access Login Required, Admin Only
+```
+
+```javascript
+ * @route PUT /paperwork/:id/:idPaper
+ * @description Update a paperwork
+ * @header {accessToken}
+ * @access Login Required, Admin Only
+```
+
+```javascript
+ * @route DELETE /paperwork/:id/:idPaper
+ * @description Delete a paperwork
+ * @header {accessToken}
+ * @access Login Required, Admin Only
+```
+
+##### REVIEWS APIS
+
+```javascript
+ * @route POST /reviews/:id
+ * @description Create a review
+ * @header {accessToken}
+ * @access Login Required, Admin Only
+```
+
+```javascript
+ * @route GET /reviews/:id?page=0&limit=10
+ * @description Get review list of a specific employee
+ * @header {accessToken}
+ * @access Login Required
+```
+
+```javascript
+ * @route GET /reviews/:id/:reviewId
+ * @description Get a review
+ * @query {id, reviewId}
+ * @header {accessToken}
+ * @access Login Required
+```
+
+```javascript
+ * @route PUT /reviews/:id/:reviewId
+ * @description Update a review
+ * @query {id, reviewId}
+ * @header {accessToken}
+ * @access Login Required, Admin and Manager
+```
+
+```javascript
+ * @route POST /reviews/:id/:reviewId
+ * @description Share a review
+ * @query {id, reviewId}
+ * @header {accessToken}
+ * @access Login Required, Admin Only
+```
+
+```javascript
+ * @route DELETE /reviews/:id/:reviewId
+ * @description Delete a review
+ * @params {id, reviewId }
+ * @access Login Required, Admin Only
+```
+
+##### TEMPLATES
+
+```javascript
+ * @route POST /templates
+ * @description Create new template
+ * @header {accessToken}
+ * @access Login Required, Admin Only
+```
+
+```javascript
+ * @route GET /templates
+ * @description Get Template List
+ * @header {accessToken}
+ * @access Login Required
+```
+
+```javascript
+ * @route GET /templates/:templateId
+ * @description Get Single Template
+ * @header {accessToken}
+ * @access Login Required
+```
+
+```javascript
+ * @route PUT /template/:templateId
+ * @description Update a template
+ * @header {accessToken}
+ * @access Login Required, Admin Only
+```
+
+```javascript
+ * @route DELETE /templates/:templateId
+ * @description Delete a template
+ * @header {accessToken}
+ * @access Login Required, Admin Only
+```
+
+### New Features (Later)
+
+- [ ] Import from Google Sheet/ Excel for `Create in bulk function`
+
+### Entity Relationship Diagram (ERD)
+
+![](https://i.imgur.com/Raq9z1U.png)
+
+### Installation Instruction
+
+- Update later

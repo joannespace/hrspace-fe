@@ -1,24 +1,24 @@
+import React, { useState } from "react";
 import { LoadingButton } from "@mui/lab";
 import { Stack } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import React from "react";
+
 import { useDispatch } from "react-redux";
 import { deleteEmployee } from "./employeeSlice";
 import { useNavigate, useParams } from "react-router-dom";
+import ConfirmBox from "../../components/ConfirmBox";
 
 function BtnGroupView({ isSubmitting, setError }) {
+  const [open, setOpen] = useState(false);
+
   const dispatch = useDispatch();
   const params = useParams();
   const navigate = useNavigate();
+
   const handleDelete = () => {
     try {
-      const confirmation = window.confirm(
-        "Do you want to delete this employee? This action can not be undo"
-      );
-      if (confirmation) {
-        dispatch(deleteEmployee(params.id));
-        navigate("/employee", { replace: true });
-      }
+      dispatch(deleteEmployee(params.id));
+      navigate("/employee", { replace: true });
     } catch (error) {
       setError("responseError", error);
     }
@@ -44,11 +44,22 @@ function BtnGroupView({ isSubmitting, setError }) {
           fontWeight: 600,
           ":hover": { backgroundColor: "secondary.lighter" },
         }}
-        onClick={handleDelete}
+        onClick={() => {
+          setOpen(true);
+        }}
       >
         <DeleteIcon fontSize="small" sx={{ marginRight: 1 }} />
         Delete
       </LoadingButton>
+
+      <ConfirmBox
+        open={open}
+        setOpen={setOpen}
+        handleDelete={handleDelete}
+        text={
+          "Do you want to delete this employee? This action can not be undo"
+        }
+      />
     </Stack>
   );
 }

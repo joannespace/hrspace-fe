@@ -58,7 +58,6 @@ function PaperworkCard({ paper }) {
         boxShadow: "1px 2px 2px grey",
         width: "330px",
         m: 2,
-
         p: 0.5,
       }}
     >
@@ -85,7 +84,9 @@ function PaperworkCard({ paper }) {
                     {item.header}
                   </Typography>
                 </Box>
-                <Box width="40%">{item.value}</Box>
+                <Box width="40%" sx={{ overflow: "clip" }}>
+                  {item.value}
+                </Box>
               </StyledBoxWithBackground>
             );
           } else {
