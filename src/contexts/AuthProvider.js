@@ -116,6 +116,7 @@ function AuthProvider({ children }) {
       callback();
     } catch (error) {
       toast.error(error.message);
+      navigate("/register");
     }
   };
 
