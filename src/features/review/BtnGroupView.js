@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { LoadingButton } from "@mui/lab";
 import { Stack } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
@@ -8,8 +8,11 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { deleteReview, shareReview } from "./reviewSlice";
 import useAuth from "../../hooks/useAuth";
+import ConfirmBox from "../../components/ConfirmBox";
 
 function BtnGroupView({ isSubmitting, setError }) {
+  const [open, setOpen] = useState(false);
+
   const dispatch = useDispatch();
   const params = useParams();
   const navigate = useNavigate();
@@ -18,17 +21,12 @@ function BtnGroupView({ isSubmitting, setError }) {
 
   const handleDelete = () => {
     try {
-      const confirmation = window.confirm(
-        "Do you want to delete this review? This action can not be undo"
+      dispatch(
+        deleteReview({
+          id: params.id,
+          reviewId: params.reviewId,
+        })
       );
-      if (confirmation) {
-        dispatch(
-          deleteReview({
-            id: params.id,
-            reviewId: params.reviewId,
-          })
-        );
-      }
       navigate(`/employee/${params.id}/review`);
     } catch (error) {
       setError("responseError", { message: error.message });
@@ -84,11 +82,20 @@ function BtnGroupView({ isSubmitting, setError }) {
               fontWeight: 600,
               ":hover": { backgroundColor: "secondary.lighter" },
             }}
-            onClick={handleDelete}
+            onClick={() => setOpen(!open)}
           >
             <DeleteIcon fontSize="small" sx={{ marginRight: 1 }} />
             Delete
           </LoadingButton>
+
+          <ConfirmBox
+            open={open}
+            setOpen={setOpen}
+            text={
+              "Do you want to delete this review? This action can not be undo."
+            }
+            handleDelete={handleDelete}
+          />
         </>
       )}
     </Stack>

@@ -10,11 +10,12 @@ import { useForm } from "react-hook-form";
 
 import { FormProvider } from "../../components/form";
 import { getEmployeeDetails } from "../employee/employeeSlice";
-import BtnCreate from "./BtnCreate";
-import { PAPERWORK_SCHEMA } from "./config";
-import FormComponent from "./FormComponent";
 import { createPaperwork } from "./paperworkSlice";
 import { getTemplateList } from "../template/templateSlice";
+import { fDate } from "../../utils/formatTime";
+import { PAPERWORK_SCHEMA } from "./config";
+import BtnCreate from "./BtnCreate";
+import FormComponent from "./FormComponent";
 
 function CreatePaperwork({ setOpenDialog }) {
   const dispatch = useDispatch();
@@ -79,6 +80,17 @@ function CreatePaperwork({ setOpenDialog }) {
 
   const onSubmit = async (data) => {
     try {
+      if (data.templateId && data.paperworkType) {
+        const foundTemplate = templateList.find(
+          (tem) => tem._id === data.templateId
+        );
+
+        if (foundTemplate.category !== data.paperworkType) {
+          console.log("Hey");
+          throw new Error("Template category and paperwork type unmatch");
+        }
+      }
+
       data = { ...data, employeeId: employee._id };
       const dataKeys = Object.keys(data);
       dataKeys.forEach((key) => {
@@ -128,8 +140,23 @@ export default CreatePaperwork;
 function generateOptionsList(currentEmployee) {
   const employeeKeys = Object.keys(currentEmployee);
 
+  ["paperwork", "review", "userGenerated", "lineManager", "password"].forEach(
+    (item) => {
+      if (employeeKeys.includes(item)) {
+        const index = employeeKeys.findIndex((key) => key === item);
+        employeeKeys.splice(index, 1);
+      }
+    }
+  );
+
   const richTextOptions = employeeKeys.map((key) => {
-    return { label: key, value: currentEmployee[key] };
+    if (key === "company") {
+      return { label: key, value: currentEmployee[key].companyName };
+    } else if (key === "onboardDate" || key === "birthday") {
+      return { label: key, value: fDate(currentEmployee[key]) };
+    } else {
+      return { label: key, value: currentEmployee[key] };
+    }
   });
 
   return richTextOptions;

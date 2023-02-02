@@ -14,8 +14,10 @@ import BtnAvatar from "../components/BtnAvatar";
 import styled from "@emotion/styled";
 import BtnLogout from "./BtnLogout";
 import BtnToggle from "./BtnToggle";
+import useAuth from "../hooks/useAuth";
 
 function TabSideBar() {
+  const auth = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [value, setValue] = useState(location.pathname.split("/")[1]);
@@ -40,18 +42,35 @@ function TabSideBar() {
       <BtnAvatar />
       <StyledTabs value={value} onChange={(e, value) => handleChange(value)}>
         {tabItems.map((tab) => {
-          return (
-            <StyledTab
-              onClick={() => {
-                handleChange(tab.value);
-              }}
-              label={tab.label}
-              key={tab.value}
-              value={tab.value}
-              icon={tab.icon}
-              iconPosition="start"
-            />
-          );
+          if (auth.user.role === "Admin") {
+            return (
+              <StyledTab
+                onClick={() => {
+                  handleChange(tab.value);
+                }}
+                label={tab.label}
+                key={tab.value}
+                value={tab.value}
+                icon={tab.icon}
+                iconPosition="start"
+              />
+            );
+          } else {
+            return tab.value === "employee" ? (
+              <StyledTab
+                onClick={() => {
+                  handleChange(tab.value);
+                }}
+                label={tab.label}
+                key={tab.value}
+                value={tab.value}
+                icon={tab.icon}
+                iconPosition="start"
+              />
+            ) : (
+              <></>
+            );
+          }
         })}
       </StyledTabs>
 
