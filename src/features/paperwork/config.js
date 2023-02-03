@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { fDate } from "../../utils/formatTime";
 
 export const PAPERWORK_TYPES = [
   "Intern",
@@ -35,20 +36,58 @@ export const PAPERWORK_SCHEMA = yup.object({
   reviewGenerated: yup.boolean("Invalid Request").default(true),
 });
 
+const labelUI = [
+  { label: "_id", ui: "Employee Code" },
+  { label: "name", ui: "Employee Name" },
+  { label: "email", ui: "Email" },
+  { label: "role", ui: "Employee Role" },
+  { label: "company", ui: "Company Name" },
+  { label: "onboardDate", ui: "Onboarding Date" },
+  { label: "title", ui: "Employee Title" },
+  { label: "employmentStatus", ui: "Employment Status" },
+  { label: "employmentType", ui: "employment Type" },
+  { label: "department", ui: "Department" },
+  { label: "paperwork", ui: "Paperwork" },
+  { label: "gender", ui: "Gender" },
+  { label: "birthday", ui: "Birthday" },
+  { label: "phone", ui: "Phone Number" },
+  { label: "personalEmail", ui: "Personal Email" },
+  { label: "permanentAdd", ui: "Permanent Address" },
+  { label: "perAddCity", ui: "Residential City/ Province" },
+];
 export function generateOptionsList(currentEmployee) {
   let employeeKeys = Object.keys(currentEmployee);
-  const removeKeys = ["company", "lineManager", "paperwork", "review"];
+  const removeKeys = [
+    "paperwork",
+    "review",
+    "userGenerated",
+    "lineManager",
+    "password",
+  ];
 
-  employeeKeys.forEach((key) => {
-    if (removeKeys.includes(key)) {
-      const index = employeeKeys.indexOf(key);
+  removeKeys.forEach((item) => {
+    if (employeeKeys.includes(item)) {
+      const index = employeeKeys.findIndex((key) => key === item);
       employeeKeys.splice(index, 1);
-      return employeeKeys;
     }
   });
 
   let richTextOptions = employeeKeys.map((key) => {
-    return { label: key, value: currentEmployee[key] };
+    if (key === "company") {
+      return { label: key, value: currentEmployee[key].companyName };
+    } else if (key === "onboardDate" || key === "birthday") {
+      return { label: key, value: fDate(currentEmployee[key]) };
+    } else {
+      return { label: key, value: currentEmployee[key] };
+    }
+  });
+
+  labelUI.forEach((obj) => {
+    richTextOptions.forEach((opt) => {
+      if (obj.label === opt.label) {
+        opt.ui = obj.ui;
+      }
+    });
   });
 
   return richTextOptions;

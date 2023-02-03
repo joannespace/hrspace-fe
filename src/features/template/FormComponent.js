@@ -31,7 +31,7 @@ function FormComponent({ methods, type }) {
         </FSelect>
       </Stack>
 
-      <FRichTextEditor name="content" type="paperwork" />
+      <FRichTextEditor name="content" type="paperwork" invisibility={true} />
     </Stack>
   );
 }

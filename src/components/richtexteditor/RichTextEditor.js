@@ -137,19 +137,24 @@ export default class RichTextEditor extends Component {
             editorState={editorState}
             onToggle={this.toggleInlineStyle}
           />
-          <select
-            onChange={(e) => this.onSelectChange(e)}
-            className="RichEditor-select"
-          >
-            <option value={undefined} className="RichEditor-select"></option>
-            {this.props.options?.map((obj) => {
-              return (
-                <option key={obj.label} value={obj.value}>
-                  {obj.label}
-                </option>
-              );
-            })}
-          </select>
+          {this.props.invisibility ? (
+            <></>
+          ) : (
+            <select
+              onChange={(e) => this.onSelectChange(e)}
+              className="RichEditor-select"
+            >
+              <option value={undefined} className="RichEditor-select"></option>
+              {this.props.options?.map((obj) => {
+                return (
+                  <option key={obj.label} value={obj.value}>
+                    {obj.ui}
+                  </option>
+                );
+              })}
+            </select>
+          )}
+
           <div className={className} onClick={this.focus}>
             <Editor
               blockStyleFn={getBlockStyle}

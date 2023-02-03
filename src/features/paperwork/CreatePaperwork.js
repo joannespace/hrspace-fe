@@ -12,12 +12,11 @@ import { FormProvider } from "../../components/form";
 import { getEmployeeDetails } from "../employee/employeeSlice";
 import { createPaperwork } from "./paperworkSlice";
 import { getTemplateList } from "../template/templateSlice";
-import { fDate } from "../../utils/formatTime";
-import { PAPERWORK_SCHEMA } from "./config";
+import { generateOptionsList, PAPERWORK_SCHEMA } from "./config";
 import BtnCreate from "./BtnCreate";
 import FormComponent from "./FormComponent";
 
-function CreatePaperwork({ setOpenDialog }) {
+function CreatePaperwork() {
   const dispatch = useDispatch();
   const params = useParams();
   const navigate = useNavigate();
@@ -86,7 +85,6 @@ function CreatePaperwork({ setOpenDialog }) {
         );
 
         if (foundTemplate.category !== data.paperworkType) {
-          console.log("Hey");
           throw new Error("Template category and paperwork type unmatch");
         }
       }
@@ -136,28 +134,3 @@ function CreatePaperwork({ setOpenDialog }) {
 }
 
 export default CreatePaperwork;
-
-function generateOptionsList(currentEmployee) {
-  const employeeKeys = Object.keys(currentEmployee);
-
-  ["paperwork", "review", "userGenerated", "lineManager", "password"].forEach(
-    (item) => {
-      if (employeeKeys.includes(item)) {
-        const index = employeeKeys.findIndex((key) => key === item);
-        employeeKeys.splice(index, 1);
-      }
-    }
-  );
-
-  const richTextOptions = employeeKeys.map((key) => {
-    if (key === "company") {
-      return { label: key, value: currentEmployee[key].companyName };
-    } else if (key === "onboardDate" || key === "birthday") {
-      return { label: key, value: fDate(currentEmployee[key]) };
-    } else {
-      return { label: key, value: currentEmployee[key] };
-    }
-  });
-
-  return richTextOptions;
-}

@@ -2,7 +2,7 @@ import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import RichTextEditor from "../richtexteditor/RichTextEditor";
 
-function FRichTextEditor({ name, type, options }) {
+function FRichTextEditor({ name, type, options, invisibility }) {
   const { control } = useFormContext();
   return (
     <div>
@@ -16,6 +16,7 @@ function FRichTextEditor({ name, type, options }) {
               onChange={onChange}
               type={type}
               options={options}
+              invisibility={invisibility}
             />
           );
         }}
