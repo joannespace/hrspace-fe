@@ -14,7 +14,7 @@ function BtnGenerateReset({ type, employee }) {
 
   return (
     <Box>
-      <Tooltip title="Generate password">
+      <Tooltip title="Reset password">
         <Button
           onClick={() => setOpenDialog(!openDialog)}
           sx={{ textTransform: "capitalize", width: "100px" }}

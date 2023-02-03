@@ -33,20 +33,7 @@ function PaperworkList() {
           Total paperwork: {count}
         </Typography>
 
-        {auth.user.role === "Admin" && (
-          <BtnAddPaper />
-          // <Box>
-          //   <IconButton
-          //     onClick={() =>
-          //       navigate(`/employee/${params.id}/paperwork/create`)
-          //     }
-          //   >
-          //     <Tooltip title="Create new paperwork">
-          //       <NoteAddIcon fontSize="large" color="primary" />
-          //     </Tooltip>
-          //   </IconButton>
-          // </Box>
-        )}
+        {auth.user.role === "Admin" && <BtnAddPaper />}
       </Stack>
 
       <Stack

@@ -169,7 +169,7 @@ function LoginPage() {
               sx={{ fontWeight: "600", fontSize: "1rem", p: 1 }}
               loading={isSubmitting}
             >
-              Submit
+              LOG IN
             </LoadingButton>
           </Stack>
         </FormProvider>
