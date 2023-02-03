@@ -21,7 +21,7 @@ export default BtnAddTemplate;
 
 function dialogItemsGenerate(openDialog, setOpenDialog) {
   return {
-    title: "Create new review",
+    title: "Create new template",
     component: (
       <CreateTemplate openDialog={openDialog} setOpenDialog={setOpenDialog} />
     ),

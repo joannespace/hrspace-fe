@@ -34,7 +34,6 @@ function insertCharacter(fieldToInsert, editorState) {
 
 export default class RichTextEditor extends Component {
   constructor(props) {
-    console.log(props);
     super(props);
 
     this.state = {
