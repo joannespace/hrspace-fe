@@ -1,1 +1,3 @@
-/* /verification/:splat
+/*  /index.html 200
+
+/verification/*  /verification/:splat 200
