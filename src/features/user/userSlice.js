@@ -81,12 +81,13 @@ export const activateUser =
     dispatch(slice.actions.startLoading());
     try {
       const response = await apiService.post(`/users/activate/${id}`, body);
-      console.log(response);
       dispatch(slice.actions.activateUserSuccess(response.data));
 
       dispatch(getEmployeeList({}));
 
-      toast.success("Activate User Success");
+      toast.success(
+        "Activate User Success. Please ask employee to check their email for verification & login info."
+      );
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
       toast.error(error.message);
