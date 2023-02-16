@@ -319,7 +319,7 @@ When any paperwork created successfully, a related review for that paperwork wil
 
 ### Entity Relationship Diagram (ERD)
 
-![](https://i.imgur.com/efCfEsV.png)
+![](https://i.imgur.com/8d1cRmD.png)
 
 ### Installation Instruction
 
